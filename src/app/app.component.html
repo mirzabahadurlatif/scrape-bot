@@ -1,0 +1,60 @@
+
+<mat-toolbar class="mat-elevation-z3" style="background-color: white;padding: 10px;">
+  <img src="mingcute_menu-line.svg" style="width:35px;height:35px" alt="">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="Group 21.svg" alt="">
+</mat-toolbar>
+<br>
+
+<div class="flex pl-80 ">
+
+<mat-form-field class="w-1/2 mr-10" appearance="outline">
+  <!-- <mat-label class="mr-96">Please paste link here</mat-label> -->
+  <input matInput placeholder="Please paste link here">
+
+  <mat-icon class="mr-4" matSuffix >search</mat-icon>
+</mat-form-field>
+
+<mat-form-field class="w-32 mr-10 " >
+  <mat-select [value]="'youtube'" >
+      
+    <mat-option [value]="'youtube'">Youtube</mat-option>
+    <mat-option [value]="'instagram'">Instagram</mat-option>
+    <mat-option [value]="'facebook'">Facebook</mat-option>
+
+  </mat-select>
+
+</mat-form-field>
+<!-- <select id="fruits" name="fruits" style="border: 1px solid black; height: 55px;margin-right: 35px;border-radius: 10px;background-color: #ECF3F9;color: black;padding: 6px;">
+  <option value="apple" >Facebook</option>
+  <option value="banana">Instagram</option>
+  <option value="orange">Youtube</option>
+</select> -->
+
+<button mat-raised-button style="border-radius: 10px; padding: 28px; background-color: #1791C8;color: white;">Analyze</button>
+
+</div>
+<br>
+
+<div class="flex pl-80">
+
+<app-card commentTitle="Positive Comments" count="300"  class="mr-5"></app-card>
+<app-card commentTitle="Negative Comments" count="150" c class="mr-5"></app-card>
+<app-card commentTitle="Neutral Comments" count="50" class="mr-5"></app-card>
+
+</div>
+
+<!-- <div fxLayout="column" fxLayoutGap="14" class="mrl-20 mb-20" ngClass.sm="mrl-10" ngClass.xs="mrl-10">
+  <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20" fxLayoutAlign="space-between">
+      <mat-card class="mt-20" fxFlex="100" fxFlex.sm="99" fxFlex.xs="99">
+          <div class="bg-card-top"></div>
+          <div fxLayout="row" fxLayoutAlign="space-between" style="position: relative;z-index: 9999; height: 40px;">
+              <h3 style="margin: 0;">{{'Contribution Breakdown by Risk Type'}}</h3>
+          </div>
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+              [legend]="barChartLegend" [chartType]="'bar'" height="80" style="position: relative;z-index: 9999;">
+          </canvas>
+          <div class="bg-card-bottom"></div>
+      </mat-card>
+  </div>
+</div> -->
