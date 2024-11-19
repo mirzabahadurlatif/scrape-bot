@@ -7,71 +7,130 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { CardComponent } from "./card/card.component";
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartDataset, ChartOptions } from 'chart.js';
+// import { FlexLayoutModule } from '@angular/flex-layout';
+// import { BaseChartDirective } from 'ng2-charts';
+// import { ChartDataset, ChartOptions } from 'chart.js';
+// import { NgChartsModule } from 'ng2-charts';
+import { Chart, registerables } from 'chart.js';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import {FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+Chart.register(...registerables);
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [FlexLayoutModule,MatSelectModule, RouterOutlet, MatIconModule, MatButtonModule, MatToolbarModule, MatFormFieldModule, MatInputModule, CardComponent],
+  imports: [ReactiveFormsModule,FormsModule,CommonModule,MatSelectModule, MatIconModule, MatButtonModule, MatToolbarModule, MatFormFieldModule, MatInputModule, CardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'scrape-bot';
+  title = 'angular-bar-chart';
 
-  // constructor(private chart: BaseChartDirective){
+  // // Define the chart data
+  // public barChartData: ChartData<'bar'> = {
+  //   labels: ['January', 'February', 'March', 'April', 'May'],
+  //   datasets: [
+  //     {
+  //       data: [65, 59, 80, 81, 56],
+  //       label: 'Sales',
+  //       backgroundColor: 'rgba(63, 81, 181, 0.2)',
+  //       borderColor: 'rgba(63, 81, 181, 1)',
+  //       borderWidth: 1
+  //     }
+  //   ]
+  // };
+
+  // // Chart options for customizing the chart
+  // public barChartOptions: ChartOptions = {
+  //   responsive: true,
+  //   scales: {
+  //     x: {
+  //       title: {
+  //         display: true,
+  //         text: 'Months'
+  //       }
+  //     },
+  //     y: {
+  //       title: {
+  //         display: true,
+  //         text: 'Sales'
+  //       },
+  //       beginAtZero: true
+  //     }
+  //   }
+  // };
+
+  // // Chart type
+  // public barChartType: 'bar' = 'bar';
+  yturl!:string;
+  data!:any;
+  posiCount=0
+  negCount=0
+  netCount=0
+  loader:boolean=false;
+  chart:any;
+  public config:any = {
+    type: 'bar',
+    data: {
+      labels:['Positive','Negative','Neutral'],
+      datasets:[
+        {label:'Positive',data:[0,0,0],backgroundColor:'green'},
+        {label:'Negative',data:[0,0,0],backgroundColor:'red'},
+        {label:'Neutral',data:[0,0,0],backgroundColor:'blue'}
+
+      ],
+      
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  };
+
+ 
+  // formurl=new FormControl();
+  constructor(private http:HttpClient){
+
+  }
+  ngOnInit(){
+    this.chart=new Chart('MyChart',this.config)
+    // this.config.data.datasets[0].data=[0,10,0]
+    // this.config.data.datasets[1].data=[0,0,20]
+    // this.config.data.datasets[2].data=[40,0,0]
+  }
+
+  onClick(){
+    this.loader=true
+    this.http.get(`http://127.0.0.1:3002/api/youtube/comments?url=${this.yturl}`).subscribe(
+      (response) => {
+        this.data = response;
+        this.posiCount=this.data.positiveComments.length
+        this.negCount=this.data.negativeComments.length
+        this.netCount=this.data.neutralComments.length
+        this.loader=false
+        console.log('Data received:', this.data);
+        
+        
+    //     this.config.data.datasets[0].data=[0,10,0]
+    // this.config.data.datasets[1].data=[0,0,20]
+    // this.config.data.datasets[2].data=[40,0,0]
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
+
+      this.config.data.datasets[0].data=[this.posiCount,0,0]
+    this.config.data.datasets[1].data=[0,this.negCount,0]
+    this.config.data.datasets[2].data=[0,0,this.netCount]
+    this.chart=new Chart('MyChart',this.config)
+
     
-  // }
-//   barChartOptions: ChartOptions = {
-//     responsive: true,
-//     scales: {
-//         xAxes: [{
-//             gridLines: {
-//                 display: true
-//             },
-//             scaleLabel: {
-//                 display: true,
-//                 labelString: "Portfolio",
-//             },
-//         }],
-//         yAxes: [{
-//             gridLines: {
-//                 display: true
-//             },
-//             scaleLabel: {
-//                 display: true,
-//                 labelString: "Amount",
-//             },
-//             ticks: {
-//                 callback: function (value, index, values) {
-//                     return Number(value).toFixed(2);
-//                 }
-//             }
-//         }]
-//     },
-// };
 
-// barChartLabels: Label[] = ['Total Comment', 'Positive',  'Negative', 'Neutral'];
-// barChartLegend = false;
+  }
 
-// barChartData: ChartDataset[] = [
-//     {
-//         data: [], label: 'Series 1',
-//         backgroundColor: ['#3d8cec', '#004089', '#021F41', '#315C8F'],
-//     },
-// ];
-
-// getBarChartData() {
-
-//   this.barChartData[0].data = [];
-//   let low = 35000;
-//   let medium = 55000;
-//   let high = 27000;
-//   let total_contribuions = low + high + medium;
-//   this.barChartData[0].data.push(total_contribuions, high, medium, low);
-  
-// }
 }
