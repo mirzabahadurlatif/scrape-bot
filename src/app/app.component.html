@@ -50,18 +50,69 @@
   </canvas>
 </div>
 
+<div class="flex flex-col justify-between pl-80">
 
-<!-- <div fxLayout="column" fxLayoutGap="14" class="mrl-20 mb-20" ngClass.sm="mrl-10" ngClass.xs="mrl-10">
-  <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20" fxLayoutAlign="space-between">
-      <mat-card class="mt-20" fxFlex="100" fxFlex.sm="99" fxFlex.xs="99">
-          <div class="bg-card-top"></div>
-          <div fxLayout="row" fxLayoutAlign="space-between" style="position: relative;z-index: 9999; height: 40px;">
-              <h3 style="margin: 0;">{{'Contribution Breakdown by Risk Type'}}</h3>
-          </div>
-          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
-              [legend]="barChartLegend" [chartType]="'bar'" height="80" style="position: relative;z-index: 9999;">
-          </canvas>
-          <div class="bg-card-bottom"></div>
-      </mat-card>
-  </div>
-</div> -->
+<div style="overflow-y: auto;height: 250px;">
+    <table >
+      <caption>Positive</caption>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Comment</th>
+                <th>Sentiment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of positiveData">
+                <td>{{item.username}}</td>
+                <td>{{item.comment}}</td>
+                <td>{{item.sentiment}}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+<br>
+<div style="overflow-y: auto;height: 250px;">
+  <table >
+    <caption>Negative</caption>
+      <thead>
+          <tr>
+              <th>Username</th>
+              <th>Comment</th>
+              <th>Sentiment</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of negativeData">
+              <td>{{item.username}}</td>
+              <td>{{item.comment}}</td>
+              <td>{{item.sentiment}}</td>
+          </tr>
+          
+      </tbody>
+  </table>
+</div>
+<br>
+<div style="overflow-y: auto;height: 250px;">
+  <table >
+    <caption>Neutral</caption>
+      <thead>
+          <tr>
+              <th>Username</th>
+              <th>Comment</th>
+              <th>Sentiment</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let item of neturalData">
+              <td>{{item.username}}</td>
+              <td>{{item.comment}}</td>
+              <td>{{item.sentiment}}</td>
+          </tr>
+          
+      </tbody>
+  </table>
+</div>
+
+</div>

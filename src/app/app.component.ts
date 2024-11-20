@@ -69,6 +69,9 @@ export class AppComponent {
   negCount=0
   netCount=0
   loader:boolean=false;
+  positiveData:any;
+  negativeData:any;
+  neturalData:any;
   chart:any;
   public config:any = {
     type: 'bar',
@@ -109,8 +112,11 @@ export class AppComponent {
       (response) => {
         this.data = response;
         this.posiCount=this.data.positiveComments.length
+        this.positiveData=this.data.positiveComments
         this.negCount=this.data.negativeComments.length
+        this.negativeData=this.data.negativeComments
         this.netCount=this.data.neutralComments.length
+        this.neturalData=this.data.neutralComments
         this.loader=false
         console.log('Data received:', this.data);
         
