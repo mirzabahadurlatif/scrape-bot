@@ -78,7 +78,7 @@ export class AppComponent {
     data: {
       labels:['Positive','Negative','Neutral'],
       datasets:[
-        {label:'Positive',data:[0,0,0],backgroundColor:'green'},
+        {label:'Positive',data:[0,,0],backgroundColor:'green'},
         {label:'Negative',data:[0,0,0],backgroundColor:'red'},
         {label:'Neutral',data:[0,0,0],backgroundColor:'blue'}
 
@@ -101,9 +101,7 @@ export class AppComponent {
   }
   ngOnInit(){
     this.chart=new Chart('MyChart',this.config)
-    // this.config.data.datasets[0].data=[0,10,0]
-    // this.config.data.datasets[1].data=[0,0,20]
-    // this.config.data.datasets[2].data=[40,0,0]
+  
   }
 
   onClick(){
@@ -120,7 +118,15 @@ export class AppComponent {
         this.loader=false
         console.log('Data received:', this.data);
         
+        if(Chart.getChart("MyChart")) {
+          Chart.getChart("MyChart")?.destroy()
+        }
         
+          this.config.data.datasets[0].data=[this.posiCount,0,0]
+        this.config.data.datasets[1].data=[0,this.negCount,0]
+        this.config.data.datasets[2].data=[0,0,this.netCount]
+        this.chart=new Chart('MyChart',this.config)
+
     //     this.config.data.datasets[0].data=[0,10,0]
     // this.config.data.datasets[1].data=[0,0,20]
     // this.config.data.datasets[2].data=[40,0,0]
@@ -130,10 +136,7 @@ export class AppComponent {
       }
     );
 
-      this.config.data.datasets[0].data=[this.posiCount,0,0]
-    this.config.data.datasets[1].data=[0,this.negCount,0]
-    this.config.data.datasets[2].data=[0,0,this.netCount]
-    this.chart=new Chart('MyChart',this.config)
+
 
     
 
